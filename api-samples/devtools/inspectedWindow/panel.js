@@ -31,11 +31,12 @@ chrome.devtools.inspectedWindow.getResources((resources) => {
   div.innerText = result;
   document.body.appendChild(div);
 });
+
+chrome.storage.local.set({ name: 'vale222' });
 chrome.devtools.network.onRequestFinished.addListener(function (request) {
-  requests.push(request);
+  // requests.push(JSON.stringify(request, null, 2));
   // 将 request 对象转换为 JSON 字符串
   // const requestData = JSON.stringify(request, null, 2);
-
   // 创建 Blob 对象
   // const blob = new Blob([requestData], { type: 'application/json' });
   // console.log(blob)
