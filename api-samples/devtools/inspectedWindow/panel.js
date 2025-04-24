@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+const requests = [];
 const types = {};
 chrome.devtools.inspectedWindow.getResources((resources) => {
   resources.forEach((resource) => {
@@ -30,4 +30,34 @@ chrome.devtools.inspectedWindow.getResources((resources) => {
   let div = document.createElement('div');
   div.innerText = result;
   document.body.appendChild(div);
+});
+chrome.devtools.network.onRequestFinished.addListener(function (request) {
+  requests.push(request);
+  // 将 request 对象转换为 JSON 字符串
+  // const requestData = JSON.stringify(request, null, 2);
+
+  // 创建 Blob 对象
+  // const blob = new Blob([requestData], { type: 'application/json' });
+  // console.log(blob)
+  // // 创建临时 URL
+  // const url = URL.createObjectURL(blob);
+  // console.log(url)
+  // // 生成文件名
+  // const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  // const filename = `network_request_${timestamp}.json`;
+  //
+  // // 触发下载操作
+  // chrome.downloads.download({
+  //   url: url,
+  //   filename: filename,
+  //   saveAs: false
+  // }, function (downloadId) {
+  //   if (chrome.runtime.lastError) {
+  //     console.error('下载失败:', chrome.runtime.lastError);
+  //   } else {
+  //     console.log('下载成功，下载 ID:', downloadId);
+  //   }
+  //   // 释放临时 URL
+  //   URL.revokeObjectURL(url);
+  // });
 });
